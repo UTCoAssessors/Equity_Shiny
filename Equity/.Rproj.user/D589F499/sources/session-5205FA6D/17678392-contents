@@ -1,0 +1,20 @@
+which_min <- Preds %>%
+  dplyr::mutate(serno = as.character(serno),
+                serno = ifelse(nchar(serno) == 8, paste0('0', serno), serno)) %>%
+  dplyr::left_join(df) %>%
+  dplyr::filter(!is.na(tasp), sold_year == 2022 & valid == T & year_built < 2021) %>%
+  dplyr::mutate(dif_this = abs(.95*adjusted_prediction - tasp),
+                dif_that = abs(tot_val_2022 - tasp),
+                which_min = ifelse(dif_this < dif_that,1,0)) %>%
+  dplyr::select(serno, adjusted_prediction, tot_val_2022, which_min, dif_this, dif_that, tasp) %>%
+  dplyr::mutate(preds = ifelse(which_min == 1, adjusted_prediction, adjusted_prediction)) %>%
+  data.frame 
+
+mean(which_min$which_min, na.rm= T)
+
+which.max(which_min$dif_this - which_min$dif_that)
+
+which_min
+
+Valuation::ratio_stats(which_min$preds, which_min$tasp)
+

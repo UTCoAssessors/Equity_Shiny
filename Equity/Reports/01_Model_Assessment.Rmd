@@ -1,0 +1,24 @@
+---
+title: "Untitled"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    collapsed: false
+    smooth_scroll: true
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,warning = FALSE,message = FALSE)
+options(scipen=999)
+library(tidyverse)
+library(easystats)
+library(Valuation)
+library(modelr)
+theme_set(theme_minimal())
+```
+
+___
+

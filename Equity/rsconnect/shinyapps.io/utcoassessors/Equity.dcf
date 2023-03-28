@@ -1,0 +1,13 @@
+name: Equity
+title: Equity
+username:
+account: utcoassessors
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 8645417
+bundleId: 6994316
+url: https://utcoassessors.shinyapps.io/Equity/
+when: 1679518377.16374
+lastSyncTime: 1679518377.16375
+asMultiple: FALSE
+asStatic: FALSE
