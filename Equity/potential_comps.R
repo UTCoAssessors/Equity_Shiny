@@ -3,19 +3,18 @@ theme_set(theme_minimal())
 pyear <- Sys.Date() %>% lubridate::year()
 
 # IMPORT DATA ####
-
 # import test data set
-df <- readRDS("./data/cleaned_data_w_lat-long.RDS")
+df <- readRDS("./Data/cleaned_data_w_lat-long.RDS")
 
-Preds <- read.csv('./data/FinalPreds.csv') %>% 
+Preds <- read.csv('./Data/FinalPreds.csv') %>% 
   janitor::clean_names() %>%
   dplyr::select(serno, tasp, scaled_pred_cap, scaled_pred, adjusted_prediction_cap, adjusted_prediction, tot_val_2022, re_res, re_agr, re_com, im_agr, pct_change)
 
-s <- geojson_sf('./data/parcel_Residential.geojson')
+s <- geojson_sf('./Data/parcel_Residential.geojson')
 x <- st_sf(s)
 x$SERIAL <- ifelse(nchar(x$SERIAL) ==8, paste0('0', x$SERIAL), x$SERIAL)
 
-IMAGE <- read.csv('./data/HouseImageLinks.csv')
+IMAGE <- read.csv('./Data/HouseImageLinks.csv')
 IMAGE$serno <- ifelse(nchar(IMAGE$serno) ==8, paste0('0', IMAGE$serno), IMAGE$serno)
 
 read_clean <- function(filepath){
@@ -226,9 +225,6 @@ Preds <- Preds %>%
   total <- merge(x= total, y = Preds, by.x = 'SERIAL', by.y = 'serno')
   
   total$psf <- (total$adjusted_prediction_cap - total$re_res - total$re_agr - total$re_com - total$im_agr) / total$ADJ_LA
-
-  total <- total %>%
-    dplyr::filter(!is.na(tasp))
   
   w <- st_bbox(total)
 

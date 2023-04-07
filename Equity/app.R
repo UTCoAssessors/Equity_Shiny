@@ -116,7 +116,7 @@ server <- function(input, output, session) {
 
   df <- reactive({
     if(is.null(input$file1$datapath) ){
-      df <- readRDS("./data/cleaned_data_w_lat-long.RDS")
+      df <- readRDS("./Data/cleaned_data_w_lat-long.RDS")
       df <- df %>%
         dplyr::distinct(serno, .keep_all = T)
 
